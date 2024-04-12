@@ -19,8 +19,10 @@ Project layout
 |   |   |-- consumer.go      # Message consuming functionalities
 |   |
 |   |-- /db                  # Database interactions
-|   |   |-- db.go            # Database setup and queries
+|   |   |-- conn.go          # Database setup and queries
 |   |   |-- model.go         # Database models
+|   |   |-- config.go        # Database connection
+|   |   |-- query.go         # GetUnmatched pattern
 |   |
 |   |-- /config              # Configuration management
 |       |-- config.go        # Load and handle configuration settings
