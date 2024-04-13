@@ -4,15 +4,15 @@
         "api_key":""
     },
     "rabbitmq_client":{
-        "host":"",
-        "username":"",
-        "password":"",
-        "queue_name":""
+        "host":"localhost:5672",
+        "username":"user",
+        "password":"user123",
+        "queue_name":"fold"
     },
     "sql_client":{
-        "host":"",
-        "username":"",
-        "password":"",
-        "database":""
+        "host":"localhost:3306",
+        "username":"root",
+        "password":"user123",
+        "database":"fold"
     }
 }

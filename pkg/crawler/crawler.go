@@ -8,18 +8,18 @@ import (
 	"log/slog"
 
 	"github.com/chkda/merchant-crawler/pkg/api/google"
-	"github.com/chkda/merchant-crawler/pkg/db/mysql"
+	"github.com/chkda/merchant-crawler/pkg/db/sql"
 	"github.com/chkda/merchant-crawler/pkg/queue"
 )
 
 type Crawler struct {
-	SQLConnector   *mysql.SQLConnector
+	SQLConnector   *sql.SQLConnector
 	RabbitMQClient *queue.RabbitMQClient
 	SearchAPI      *google.SearchAPI
 }
 
 func New(
-	sqlConnector *mysql.SQLConnector,
+	sqlConnector *sql.SQLConnector,
 	mqClient *queue.RabbitMQClient,
 	searchAPI *google.SearchAPI,
 ) *Crawler {
