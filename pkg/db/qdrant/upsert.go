@@ -7,7 +7,7 @@ import (
 )
 
 type QdrantItem struct {
-	Vector             [vectorSize]float32
+	Vector             []float32
 	NormalisedMerchant string
 	Link               string
 }
@@ -18,7 +18,7 @@ func (c *Qdrant) Upsert(ctx context.Context, item *QdrantItem) error {
 		Vectors: &pb.Vectors{
 			VectorsOptions: &pb.Vectors_Vector{
 				Vector: &pb.Vector{
-					Data: item.Vector[:],
+					Data: item.Vector,
 				},
 			},
 		},

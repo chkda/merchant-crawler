@@ -6,5 +6,5 @@ type QdrantConfig struct {
 }
 
 const (
-	vectorSize = 64
+	vectorSize = 8
 )
