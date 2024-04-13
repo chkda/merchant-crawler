@@ -52,13 +52,13 @@ func main() {
 	searchAPI := google.New(cfg.SearchAPIConfig)
 
 	crawler := crawler.New(sqlClient, rabbitmqClient, searchAPI)
-
+	// crawler.Crawl()
 	cron := gocron.NewScheduler(time.Local)
-	_, err = cron.Cron("*/15 * * * *").Do(crawler.Crawl)
+	_, err = cron.Cron("*/1 * * * *").Do(crawler.Crawl)
 	if err != nil {
 		panic(err)
 	}
-	cron.StartImmediately()
+	cron.StartAsync()
 	for {
 		time.Sleep(1 * time.Hour)
 	}

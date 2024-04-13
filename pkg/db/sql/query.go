@@ -1,6 +1,8 @@
 package sql
 
-import "context"
+import (
+	"context"
+)
 
 type Row struct {
 	Id      string `db:"ID"`
@@ -8,7 +10,7 @@ type Row struct {
 }
 
 func (s *SQLConnector) GetUnmatchedPattern(ctx context.Context) ([]*Row, error) {
-	query := "SELECT ID, Pattern FROM " + TABLE + "WHERE IsFound=0 "
+	query := "SELECT ID, Pattern FROM " + TABLE + " WHERE IsFound=0 "
 	patterns := make([]*Row, 0, 5)
 	row, err := s.DB.QueryxContext(ctx, query)
 	if err != nil {
