@@ -1,0 +1,18 @@
+{
+    "google_custom_search":{
+        "search_engine_id":"",
+        "api_key":""
+    },
+    "rabbitmq_client":{
+        "host":"",
+        "username":"",
+        "password":"",
+        "queue_name":""
+    },
+    "sql_client":{
+        "host":"",
+        "username":"",
+        "password":"",
+        "database":""
+    }
+}
