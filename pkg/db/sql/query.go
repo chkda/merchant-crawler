@@ -33,3 +33,9 @@ func (s *SQLConnector) UpdateFoundQuery(ctx context.Context, id string) error {
 	_, err := s.DB.ExecContext(ctx, query, 1, id)
 	return err
 }
+
+func (s *SQLConnector) InsertPatternQuery(ctx context.Context, pattern string) error {
+	query := "INSERT INTO " + TABLE + " (Pattern, IsFound) VALUES (?, ?) "
+	_, err := s.DB.ExecContext(ctx, query, pattern, 0)
+	return err
+}
