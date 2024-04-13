@@ -32,9 +32,12 @@ func New(cfg *OpenAIConfig) *OpenAIAPI {
 
 }
 
-func (c *OpenAIAPI) GetEmbedding(req *Request) ([]*EmbeddingData, error) {
-	req.Model = c.Model
-	req.Dimensions = c.Dimensions
+func (c *OpenAIAPI) GetEmbedding(text string) ([]*EmbeddingData, error) {
+	req := &Request{
+		Input:      text,
+		Model:      c.Model,
+		Dimensions: c.Dimensions,
+	}
 
 	data, err := json.Marshal(req)
 	if err != nil {
