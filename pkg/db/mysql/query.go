@@ -1,4 +1,4 @@
-package db
+package mysql
 
 import "context"
 
@@ -7,7 +7,7 @@ type Row struct {
 	Pattern string `db:"Pattern"`
 }
 
-func (s *DBConnector) GetUnmatchedPattern(ctx context.Context) ([]*Row, error) {
+func (s *SQLConnector) GetUnmatchedPattern(ctx context.Context) ([]*Row, error) {
 	query := "SELECT ID, Pattern FROM " + TABLE + "WHERE IsFound=0 "
 	patterns := make([]*Row, 0, 5)
 	row, err := s.DB.QueryxContext(ctx, query)

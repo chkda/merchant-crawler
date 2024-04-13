@@ -1,6 +1,6 @@
-package db
+package sql
 
-type DBConnConfig struct {
+type SQLConnConfig struct {
 	Host     string `json:"host"`
 	Username string `json:"username"`
 	Password string `json:"password"`

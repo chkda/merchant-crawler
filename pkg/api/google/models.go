@@ -1,4 +1,4 @@
-package api
+package google
 
 const (
 	BASE_URL = "https://www.googleapis.com/customsearch/v1"

@@ -5,11 +5,11 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type DBConnector struct {
+type SQLConnector struct {
 	DB *sqlx.DB
 }
 
-func New(cfg *DBConnConfig) (*DBConnector, error) {
+func New(cfg *SQLConnConfig) (*SQLConnector, error) {
 	sqlConfig := mysql.Config{
 		User:   cfg.Username,
 		Passwd: cfg.Password,
@@ -23,7 +23,7 @@ func New(cfg *DBConnConfig) (*DBConnector, error) {
 		return nil, err
 	}
 
-	return &DBConnector{
+	return &SQLConnector{
 		DB: conn,
 	}, nil
 }
