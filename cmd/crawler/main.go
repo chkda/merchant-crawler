@@ -59,8 +59,7 @@ func main() {
 		panic(err)
 	}
 	cron.StartAsync()
-	for {
-		time.Sleep(1 * time.Hour)
-	}
+	block := make(chan struct{})
+	<-block
 
 }

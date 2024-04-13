@@ -2,6 +2,7 @@ package crawler
 
 import (
 	"context"
+	"errors"
 	"os"
 	"strings"
 
@@ -56,6 +57,9 @@ func (c *Crawler) ProcessPattern(ctx context.Context, pattern string) error {
 	searchResults, err := c.SearchAPI.GetSearchResults(pattern)
 	if err != nil {
 		return err
+	}
+	if len(searchResults) == 0 {
+		return errors.New("search result not found")
 	}
 	firstResult := searchResults[0]
 	merchantLink := firstResult.Link
