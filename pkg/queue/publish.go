@@ -8,6 +8,7 @@ import (
 )
 
 type Message struct {
+	ID                 string `json:"id"`
 	Query              string `json:"query"`
 	NormalisedMerchant string `json:"normalised_merchant"`
 	MerchantLink       string `json:"merchant_link"`

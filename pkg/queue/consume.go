@@ -11,7 +11,7 @@ func (c *RabbitMQClient) ReceiveMessage(ctx context.Context) (<-chan amqp.Delive
 	if err != nil {
 		return nil, err
 	}
-	defer channel.Close()
+	// defer channel.Close()
 
 	messageChan, err := channel.ConsumeWithContext(
 		ctx,

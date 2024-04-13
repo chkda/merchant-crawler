@@ -42,7 +42,7 @@ func (c *Crawler) Crawl() {
 	}
 	for _, row := range unmatchedPatterns {
 		go func() {
-			err := c.ProcessPattern(ctx, row.Pattern)
+			err := c.ProcessPattern(ctx, row.Id, row.Pattern)
 			if err != nil {
 				logWriter.Error(err.Error())
 				return
@@ -53,7 +53,7 @@ func (c *Crawler) Crawl() {
 
 }
 
-func (c *Crawler) ProcessPattern(ctx context.Context, pattern string) error {
+func (c *Crawler) ProcessPattern(ctx context.Context, id string, pattern string) error {
 	searchResults, err := c.SearchAPI.GetSearchResults(pattern)
 	if err != nil {
 		return err
@@ -67,6 +67,7 @@ func (c *Crawler) ProcessPattern(ctx context.Context, pattern string) error {
 	merchantDescription := firstResult.Snippet
 	normalisedMerchant := getMerchantNameFromURL(firstResult.DisplayLink)
 	msg := &queue.Message{
+		ID:                 id,
 		Query:              pattern,
 		MerchantLink:       merchantLink,
 		NormalisedMerchant: normalisedMerchant,

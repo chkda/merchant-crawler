@@ -3,6 +3,7 @@ package qdrant
 import (
 	"context"
 
+	"github.com/google/uuid"
 	pb "github.com/qdrant/go-client/qdrant"
 )
 
@@ -14,7 +15,11 @@ type QdrantItem struct {
 
 func (c *Qdrant) Upsert(ctx context.Context, item *QdrantItem) error {
 	pointsClient := pb.NewPointsClient(c.Conn)
+	uid := uuid.New().String()
 	point := &pb.PointStruct{
+		Id: &pb.PointId{
+			PointIdOptions: &pb.PointId_Uuid{Uuid: uid},
+		},
 		Vectors: &pb.Vectors{
 			VectorsOptions: &pb.Vectors_Vector{
 				Vector: &pb.Vector{

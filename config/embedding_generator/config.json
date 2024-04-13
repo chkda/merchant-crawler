@@ -1,0 +1,25 @@
+{
+    "openai":{
+        "api_key":"",
+        "url":"https://api.openai.com/v1/embeddings",
+        "model":"text-embedding-3-small",
+        "embedding_dimensions":8
+
+    },
+    "rabbitmq_client":{
+        "host":"localhost:5672",
+        "username":"user",
+        "password":"user123",
+        "queue_name":"fold"
+    },
+    "qdrant_config":{
+        "host":"localhost:6334",
+        "collection":"merchants"
+    },
+    "sql_client":{
+        "host":"localhost:3306",
+        "username":"root",
+        "password":"user123",
+        "database":"fold"
+    }
+}

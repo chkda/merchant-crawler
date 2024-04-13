@@ -8,32 +8,36 @@ import (
 
 	"github.com/chkda/merchant-crawler/pkg/api/openai"
 	"github.com/chkda/merchant-crawler/pkg/db/qdrant"
+	"github.com/chkda/merchant-crawler/pkg/db/sql"
 )
 
 type EmbeddingsGenerator struct {
 	Model       *openai.OpenAIAPI
 	VectorStore *qdrant.Qdrant
+	SQLClient   *sql.SQLConnector
 }
 
 func New(
 	client *openai.OpenAIAPI,
 	vectorStore *qdrant.Qdrant,
+	sqlClient *sql.SQLConnector,
 ) *EmbeddingsGenerator {
 	return &EmbeddingsGenerator{
 		Model:       client,
 		VectorStore: vectorStore,
+		SQLClient:   sqlClient,
 	}
 }
 
 func (c *EmbeddingsGenerator) ProcessText(
 	ctx context.Context,
-	text string,
 	merchantName string,
 	merchantLink string,
+	merchantId string,
 ) {
 	jsonHandler := slog.NewJSONHandler(os.Stderr, nil)
 	logWriter := slog.New(jsonHandler)
-	embeddings, err := c.Model.GetEmbedding(text)
+	embeddings, err := c.Model.GetEmbedding(merchantName)
 	if err != nil {
 		logWriter.Error(err.Error())
 		return
@@ -56,4 +60,11 @@ func (c *EmbeddingsGenerator) ProcessText(
 		logWriter.Error(err.Error())
 		return
 	}
+
+	err = c.SQLClient.UpdateFoundQuery(ctx, merchantId)
+	if err != nil {
+		logWriter.Error(err.Error())
+		return
+	}
+	logWriter.Info("Updated MerchantID:" + merchantId)
 }

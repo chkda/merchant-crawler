@@ -19,7 +19,7 @@ type Config struct {
 	RabbitMQConfig  *queue.RabbitMQConfig `json:"rabbitmq_client"`
 }
 
-var FILE_LOC = "/home/chhaya/my_files/ml/fold/crawler/config/crawler/crawler.json"
+var FILE_LOC = "/home/chhaya/my_files/ml/fold/crawler/config/crawler/config.json"
 
 func main() {
 	configFile, err := os.Open(FILE_LOC)

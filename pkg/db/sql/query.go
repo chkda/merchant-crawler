@@ -27,3 +27,9 @@ func (s *SQLConnector) GetUnmatchedPattern(ctx context.Context) ([]*Row, error) 
 	}
 	return patterns, nil
 }
+
+func (s *SQLConnector) UpdateFoundQuery(ctx context.Context, id string) error {
+	query := "UPDATE " + TABLE + " SET IsFound = ? WHERE id = ? "
+	_, err := s.DB.ExecContext(ctx, query, 1, id)
+	return err
+}
