@@ -23,7 +23,7 @@ Before moving forward please make sure you have docker. Follow the steps -
 5) Run `docker run --rm -d --name fold-mysql -v db_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=user123 -p 3306:3306 mysql`. Use the `tables.sql` file to create the respective DB and table.
 6) Run `docker run -p 6333:6333 -p 6334:6334 -e QDRANT__SERVICE__GRPC_PORT="6334" --rm -d qdrant/qdrant`. Create collection with 
 ```
-curl --location --request PUT 'localhost:6333 collections/merchants' --header 'Content-Type: application/json' --data '{
+curl --location --request PUT 'localhost:6333/collections/merchants' --header 'Content-Type: application/json' --data '{
   "vectors": {
     "size": 64,
     "distance": "Dot"
