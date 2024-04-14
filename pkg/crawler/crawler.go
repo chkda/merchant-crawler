@@ -37,7 +37,7 @@ func (c *Crawler) Crawl() {
 	logWriter := slog.New(jsonHandler)
 	unmatchedPatterns, err := c.SQLConnector.GetUnmatchedPattern(ctx)
 	if err != nil {
-		logWriter.Error(err.Error())
+		logWriter.Error("SQL:" + err.Error())
 		return
 	}
 	for _, row := range unmatchedPatterns {
@@ -56,10 +56,10 @@ func (c *Crawler) Crawl() {
 func (c *Crawler) ProcessPattern(ctx context.Context, id string, pattern string) error {
 	searchResults, err := c.SearchAPI.GetSearchResults(pattern)
 	if err != nil {
-		return err
+		return errors.New("search api: " + err.Error())
 	}
 	if len(searchResults) == 0 {
-		return errors.New("search result not found")
+		return errors.New("search api:search result not found")
 	}
 	firstResult := searchResults[0]
 	merchantLink := firstResult.Link

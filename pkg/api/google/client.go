@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 type SearchAPI struct {
@@ -24,7 +25,8 @@ func New(cfg *APIConfig) *SearchAPI {
 }
 
 func (s *SearchAPI) GetSearchResults(query string) ([]*Item, error) {
-	queryURL := fmt.Sprintf(s.URL+"&q=%s", query)
+	encodedQuery := url.QueryEscape(query)
+	queryURL := fmt.Sprintf(s.URL+"&q=%s", encodedQuery)
 	client := http.Client{}
 	req, err := http.NewRequest("GET", queryURL, nil)
 	if err != nil {
@@ -41,7 +43,6 @@ func (s *SearchAPI) GetSearchResults(query string) ([]*Item, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	results := &SearchResponse{}
 	err = json.Unmarshal(body, results)
 	if err != nil {

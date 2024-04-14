@@ -55,19 +55,22 @@ func (c *Controller) Handler(e echo.Context) error {
 	embedding := embeddings[0]
 	matchedItem, err := c.VectorStore.Search(ctx, embedding.Embedding)
 	if err != nil {
+		go c.SQLClient.InsertPatternQuery(ctx, query)
 		logWriter.Error(err.Error())
 		resp.Message = "search failure"
 		return e.JSON(http.StatusInternalServerError, resp)
 	}
 
 	itemMetaMap := matchedItem.GetPayload()
-	merchantName, ok := itemMetaMap["name"]
-	if !ok {
-		err = errors.New("could not find merchant name in vector payload")
+	merchantName := itemMetaMap["name"]
+	if matchedItem.Score < 0.6 {
+		go c.SQLClient.InsertPatternQuery(ctx, query)
+		err = errors.New("could not find merchant")
 		logWriter.Error(err.Error())
 		resp.Message = "search failure"
 		return e.JSON(http.StatusInternalServerError, resp)
 	}
 	resp.MerchantName = merchantName.GetStringValue()
+	resp.Message = "success"
 	return e.JSON(http.StatusOK, resp)
 }
