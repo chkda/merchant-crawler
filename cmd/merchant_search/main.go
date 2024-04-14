@@ -20,10 +20,14 @@ type Config struct {
 	QdrantConfig  *qdrant.QdrantConfig `json:"qdrant_config"`
 }
 
-var FILE_LOC = "/home/chhaya/my_files/ml/fold/crawler/config/merchant_search/config.json"
+var FILE_LOC = "/config/merchant_search/config.json"
 
 func main() {
-	configFile, err := os.Open(FILE_LOC)
+	currDir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	configFile, err := os.Open(currDir + FILE_LOC)
 	if err != nil {
 		panic(err)
 	}
