@@ -32,6 +32,7 @@ curl --location --request PUT 'localhost:6333 collections/merchants' --header 'C
 ' 
 ```
 The collection name is merchants and vector size we are using is 64. 
+
 7) Run `docker run -d --hostname my-rabbit --name fold-rabbitmq -p 5672:5672 -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=user123 --rm rabbitmq`
 8) Clone the repo and move into the directory.
 9) Run `docker build -t merchant_search:0.1 -f Dockerfile_merchant_search  .`
