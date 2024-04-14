@@ -20,8 +20,18 @@ Before moving forward please make sure you have docker. Follow the steps -
 2) Run `docker pull qdrant/qdrant:latest`
 3) Run `docker pull rabbitmq:latest`
 4) Run `docker volume create db_data`
-5) Run `docker run --rm -d --name fold-mysql -v my_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=user123 -p 3306:3306 mysql`. Use the `tables.sql` file to create the respective DB and table.
-6) Run `docker run -p 6333:6333 -p 6334:6334 -e QDRANT__SERVICE__GRPC_PORT="6334" --rm -d qdrant/qdrant`. 
+5) Run `docker run --rm -d --name fold-mysql -v db_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=user123 -p 3306:3306 mysql`. Use the `tables.sql` file to create the respective DB and table.
+6) Run `docker run -p 6333:6333 -p 6334:6334 -e QDRANT__SERVICE__GRPC_PORT="6334" --rm -d qdrant/qdrant`. Create collection with 
+```
+curl --location --request PUT 'localhost:6333 collections/merchants' --header 'Content-Type: application/json' --data '{
+  "vectors": {
+    "size": 64,
+    "distance": "Dot"
+  }
+}
+' 
+```. 
+The collection name is merchants and vector size we are using is 64. 
 7) Run `docker run -d --hostname my-rabbit --name fold-rabbitmq -p 5672:5672 -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=user123 --rm rabbitmq`
 8) Clone the repo and move into the directory.
 9) Run `docker build -t merchant_search:0.1 -f Dockerfile_merchant_search  .`
