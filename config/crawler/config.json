@@ -3,6 +3,7 @@
         "search_engine_id":"",
         "api_key":""
     },
+    "http_port":"4000",
     "rabbitmq_client":{
         "host":"localhost:5672",
         "username":"user",

@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/chkda/merchant-crawler/pkg/api/openai"
+	"github.com/chkda/merchant-crawler/pkg/controllers/healthcheck"
 	"github.com/chkda/merchant-crawler/pkg/controllers/search"
 	"github.com/chkda/merchant-crawler/pkg/db/qdrant"
 	"github.com/chkda/merchant-crawler/pkg/db/sql"
@@ -52,8 +53,10 @@ func main() {
 	}
 
 	searchController := search.New(sqlClient, qdrantClient, openAIClient)
+	healthcheckController := healthcheck.New()
 	serv := echo.New()
 	serv.GET(search.Route, searchController.Handler)
+	serv.GET(healthcheck.Route, healthcheckController.Handler)
 	serv.Logger.Fatal(serv.Start(":" + cfg.HTTPPort))
 
 }

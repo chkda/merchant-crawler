@@ -6,6 +6,7 @@
         "embedding_dimensions":8
 
     },
+    "http_port":"5000",
     "rabbitmq_client":{
         "host":"localhost:5672",
         "username":"user",

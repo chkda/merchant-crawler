@@ -7,13 +7,16 @@ import (
 	"time"
 
 	"github.com/chkda/merchant-crawler/pkg/api/google"
+	"github.com/chkda/merchant-crawler/pkg/controllers/healthcheck"
 	"github.com/chkda/merchant-crawler/pkg/crawler"
 	"github.com/chkda/merchant-crawler/pkg/db/sql"
 	"github.com/chkda/merchant-crawler/pkg/queue"
 	"github.com/go-co-op/gocron"
+	"github.com/labstack/echo/v4"
 )
 
 type Config struct {
+	HTTPPort        string                `json:"http_port"`
 	SearchAPIConfig *google.APIConfig     `json:"google_custom_search"`
 	SQLConnConfig   *sql.SQLConnConfig    `json:"sql_client"`
 	RabbitMQConfig  *queue.RabbitMQConfig `json:"rabbitmq_client"`
@@ -59,7 +62,11 @@ func main() {
 		panic(err)
 	}
 	cron.StartAsync()
-	block := make(chan struct{})
-	<-block
+	// block := make(chan struct{})
+	// <-block
+	healthcheckController := healthcheck.New()
+	serv := echo.New()
+	serv.GET(healthcheck.Route, healthcheckController.Handler)
+	serv.Logger.Fatal(serv.Start(":" + cfg.HTTPPort))
 
 }

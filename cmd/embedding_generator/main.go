@@ -8,13 +8,16 @@ import (
 	"os"
 
 	"github.com/chkda/merchant-crawler/pkg/api/openai"
+	"github.com/chkda/merchant-crawler/pkg/controllers/healthcheck"
 	"github.com/chkda/merchant-crawler/pkg/db/qdrant"
 	"github.com/chkda/merchant-crawler/pkg/db/sql"
 	"github.com/chkda/merchant-crawler/pkg/embeddings"
 	"github.com/chkda/merchant-crawler/pkg/queue"
+	"github.com/labstack/echo/v4"
 )
 
 type Config struct {
+	HTTPPort       string                `json:"http_port"`
 	OpenAIConfig   *openai.OpenAIConfig  `json:"openai"`
 	SQLConnConfig  *sql.SQLConnConfig    `json:"sql_client"`
 	RabbitMQConfig *queue.RabbitMQConfig `json:"rabbitmq_client"`
@@ -84,6 +87,10 @@ func main() {
 
 		}
 	}()
-	block := make(chan struct{})
-	<-block
+	// block := make(chan struct{})
+	// <-block
+	healthcheckController := healthcheck.New()
+	serv := echo.New()
+	serv.GET(healthcheck.Route, healthcheckController.Handler)
+	serv.Logger.Fatal(serv.Start(":" + cfg.HTTPPort))
 }
