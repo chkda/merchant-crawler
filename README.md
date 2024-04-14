@@ -12,6 +12,5 @@
   - **`/embeddings`**: Contains code to generate embeddings from text and push it to vector store.
 - **`/config`**: Manages all configurations across the application, centralizing settings into one location.
 - **`/test`**: Includes all unit and integration tests for the various components of the application.
-- **`/deploy`**: Contains scripts and configuration files for deploying the application, including Docker configurations.
 
 ### Getting Started
