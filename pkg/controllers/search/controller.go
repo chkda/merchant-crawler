@@ -24,10 +24,12 @@ type Controller struct {
 func New(
 	sqlClient *sql.SQLConnector,
 	vectorStore *qdrant.Qdrant,
+	openaiClient *openai.OpenAIAPI,
 ) *Controller {
 	return &Controller{
 		SQLClient:   sqlClient,
 		VectorStore: vectorStore,
+		Model:       openaiClient,
 	}
 }
 

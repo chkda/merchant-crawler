@@ -1,0 +1,20 @@
+{
+    "openai":{
+        "api_key":"",
+        "url":"https://api.openai.com/v1/embeddings",
+        "model":"text-embedding-3-small",
+        "embedding_dimensions":8
+
+    },
+    "qdrant_config":{
+        "host":"localhost:6334",
+        "collection":"merchants"
+    },
+    "http_port":"6000",
+    "sql_client":{
+        "host":"localhost:3306",
+        "username":"root",
+        "password":"user123",
+        "database":"fold"
+    }
+}
