@@ -1,0 +1,10 @@
+CREATE DATABASE fold;
+
+CREATE TABLE `unmatched_patterns` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Pattern` varchar(255) DEFAULT NULL,
+  `CreatedTs` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `UpdatedTs` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `IsFound` int DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB;
